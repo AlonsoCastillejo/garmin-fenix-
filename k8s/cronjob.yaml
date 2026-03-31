@@ -1,0 +1,51 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: watch-scraper
+  namespace: watch-scraper
+spec:
+  # Ejecutar cada 30 minutos
+  schedule: "*/30 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      backoffLimit: 2
+      activeDeadlineSeconds: 300
+      template:
+        spec:
+          restartPolicy: Never
+          containers:
+            - name: scraper
+              # Cambia esto por tu registry/imagen
+              image: watch-scraper:latest
+              imagePullPolicy: IfNotPresent
+              resources:
+                requests:
+                  memory: "256Mi"
+                  cpu: "100m"
+                limits:
+                  memory: "512Mi"
+                  cpu: "500m"
+              env:
+                - name: CONFIG_PATH
+                  value: "/config/watches.yaml"
+                - name: SEEN_FILE
+                  value: "/data/seen_watches.json"
+              envFrom:
+                - secretRef:
+                    name: watch-scraper-secrets
+              volumeMounts:
+                - name: config
+                  mountPath: /config
+                  readOnly: true
+                - name: data
+                  mountPath: /data
+          volumes:
+            - name: config
+              configMap:
+                name: watch-config
+            - name: data
+              persistentVolumeClaim:
+                claimName: watch-scraper-data

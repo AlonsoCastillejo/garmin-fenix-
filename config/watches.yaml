@@ -1,0 +1,20 @@
+# Relojes que te interesan - anade o quita modelos segun tus preferencias
+# El scraper buscara coincidencias parciales (case-insensitive) en el nombre del producto
+watches:
+  - "Garmin Fenix 7"
+  - "Garmin Fenix 7X"
+  - "Garmin Fenix 7S"
+  - "Garmin Fenix 8"
+  - "Garmin Epix"
+  - "Garmin Enduro"
+  - "Garmin Forerunner 965"
+  - "Garmin Forerunner 955"
+
+# Precio maximo (EUR). Dejalo en 0 para no filtrar por precio.
+max_price: 0
+
+# URL de la pagina a scrapear
+url: "https://www.elcorteingles.es/deportes/reacondicionados/relojes-deportivos-y-smartwatch/8/"
+
+# Intervalo de scraping en minutos (solo referencia, el real se configura en el CronJob)
+scrape_interval_minutes: 30

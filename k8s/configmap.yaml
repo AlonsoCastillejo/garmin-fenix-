@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: watch-config
+  namespace: watch-scraper
+data:
+  watches.yaml: |
+    watches:
+      - "Garmin Fenix 7"
+      - "Garmin Fenix 7X"
+      - "Garmin Fenix 7S"
+      - "Garmin Fenix 8"
+      - "Garmin Epix"
+      - "Garmin Enduro"
+      - "Garmin Forerunner 965"
+      - "Garmin Forerunner 955"
+    max_price: 0
+    url: "https://www.elcorteingles.es/deportes/reacondicionados/relojes-deportivos-y-smartwatch/8/"
+    scrape_interval_minutes: 30
